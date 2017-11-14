@@ -20,6 +20,7 @@
 
 > 'jwt' => \Jerry\JWT\Middleware\JWTMiddleware::class,
 
+* JWT config in config/jwt.php 
 ```
 <?php
 /**
