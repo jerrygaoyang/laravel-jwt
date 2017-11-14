@@ -120,7 +120,37 @@ class TestController extends Controller
 
 ```
 
+* Token encode and decode  
 
+```
+use Jerry/JWT/JWT;
 
+$payload = [
+  "user_id" => 1
+];
+
+$token = JWT::encode($payload);
+print_r($token);
+
+echo "<br>";
+
+$payload = JWT::decode($token);
+print_r($payload);
+
+```
+
+* Get jwt payload with Laravel Request $request
+
+```
+$payload = $request->get('jwt');
+```
+
+http request must have header :  
+
+``` 
+{
+	"Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
+}	
+```
 
 
