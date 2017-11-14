@@ -1,0 +1,18 @@
+{
+    "name": "jerrygaoyang/laravel-jwt",
+    "description": "jwt auth for encode decode and token expire_in authenticate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gaoyang",
+            "email": "917616767@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+	"autoload": {
+        "psr-4": {
+            "Jerry\\JWT\\": "src/"
+        }
+    }
+}
