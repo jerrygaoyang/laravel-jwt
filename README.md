@@ -140,18 +140,28 @@ print_r($payload);
 
 ```
 
-* Get jwt payload with Laravel Request $request
+* Get jwt payload with Laravel Request $request, http request must have header, laravel route use middleware jwt 
 
-```
-$payload = $request->get('jwt');
-```
-
-http request must have header :  
-
+http request header
 ``` 
 {
 	"Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
 }	
+
+laravel route
+```
+Route::middleware(['jwt'])->group(function () {
+    Route::get('/test2', 'TestController@test2');
+});
+```
+
+laravel controller
+controller
+```
+$payload = $request->get('jwt');
+```
+
+
 ```
 
 
