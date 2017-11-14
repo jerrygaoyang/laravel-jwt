@@ -62,7 +62,7 @@ class JWT
         $signature = hash_hmac("SHA256", $header_base64 . "." . $payload_base64, $secret, true);
 
         if (self::safe_base64_encode($signature) == $signature_base64) {
-            return json_decode(self::safe_base64_decode($payload_base64));
+            return json_decode(self::safe_base64_decode($payload_base64), true);
         } else {
             throw new TokenFormatException("the token is invalid");
         }

@@ -26,8 +26,8 @@
  */
 
 return [
-    "secret" => "1234567890",           //jwt 加解密密钥
-    "expire_in" => 604800,              //jwt 有效时间（单位：秒） 默认值 604800 （一周）
+    "secret" => "PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg",     //jwt SHA256 signature use the secret
+    "expire_in" => 604800,                              //jwt expire_in the times(seconds) , default 604800(a week)
 ];
 ```
 
