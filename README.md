@@ -147,6 +147,7 @@ http request header
 {
 	"Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
 }	
+```
 
 laravel route
 ```
@@ -159,9 +160,6 @@ laravel controller
 controller
 ```
 $payload = $request->get('jwt');
-```
-
-
 ```
 
 
