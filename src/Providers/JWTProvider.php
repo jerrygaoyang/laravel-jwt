@@ -9,6 +9,7 @@
 namespace Jerry\JWT\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 
 class JWTProvider extends ServiceProvider
@@ -21,5 +22,9 @@ class JWTProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../Config/jwt.php' => config_path('jwt.php')
         ]);
+        $content = file_get_contents(__DIR__ . '/../Config/jwt.php');
+        $laravel = 'jerrygaoyanglaraveljwtlaraveljwt';
+        $secret = Str::random(32);
+        file_put_contents(config_path('jwt.php'), str_replace($laravel, $secret, $content));
     }
 }

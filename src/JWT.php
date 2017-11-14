@@ -120,6 +120,7 @@ class JWT
         $expire_in = config("jwt.expire_in") ? config("jwt.expire_in") : 604800;
         $iat = time();
         $exp = $iat + $expire_in;
+        $payload['iat'] = $iat;
         $payload['exp'] = $exp;
         $token = self::basic_encode($payload, $secret);
         return $token;
