@@ -105,8 +105,9 @@ class TestController extends Controller
     }
 
     /*
-     * get jwt payload with Request $request;
-     * the request headers must be have Authorization : jwt {token}
+     * Get jwt payload with Request $request:
+     * http request must have header, 
+     * laravel route use middleware jwt
      */
     public function test2(Request $request)
     {
@@ -145,7 +146,7 @@ print_r($payload);
 http request header
 ``` 
 {
-	"Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
+    "Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
 }	
 ```
 
@@ -160,6 +161,49 @@ laravel controller
 controller
 ```
 $payload = $request->get('jwt');
+```
+
+### Exception
+
+you can copy below code to your Laravel app/Exceptions/handler.php render function;
+it's easy to change the token exception for us;
+it's easy to change the return data for api response.
+
+of course, we should:
+use Jerry\JWT\Exceptions\TokenFormatException;
+use Jerry\JWT\Exceptions\TokenExpiredException;
+use Jerry\JWT\Exceptions\TokenForwardException;
+use Jerry\JWT\Exceptions\PayloadFormatException;
+
+```
+	if ($exception instanceof TokenFormatException) {
+            return response()->json([
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'data' => ''
+            ]);
+        }
+        if ($exception instanceof TokenExpiredException) {
+            return response()->json([
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'data' => ''
+            ]);
+        }
+        if ($exception instanceof TokenForwardException) {
+            return response()->json([
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'data' => ''
+            ]);
+        }
+        if ($exception instanceof PayloadFormatException) {
+            return response()->json([
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'data' => ''
+            ]);
+        }
 ```
 
 
