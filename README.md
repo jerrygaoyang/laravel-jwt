@@ -1,6 +1,8 @@
 # laravel-jwt
 
-### Installation
+
+## Installation
+
 
 * First: Require this package with composer using the following command
 
@@ -14,7 +16,9 @@
 
 > php artisan vendor:publish --provider="Jerry\JWT\Providers\JWTProvider"
 
-### Configuration
+
+## Configuration
+
 
 * add the JWT middleware to the routeMiddleware array in app/Http/Kenel.php
 
@@ -36,7 +40,9 @@ return [
 ];
 ```
 
+
 ### User Guide
+
 
 * For example
 
@@ -141,7 +147,7 @@ print_r($payload);
 
 ```
 
-* Get jwt payload with Laravel Request $request, http request must have header, laravel route use middleware jwt 
+* Get jwt payload with Laravel Request $request,  http request must have header,  laravel route use middleware jwt 
 
 http request header
 ``` 
@@ -163,10 +169,14 @@ controller
 $payload = $request->get('jwt');
 ```
 
+
 ### Exception (global for api)
 
+
 you can copy below code to your Laravel app/Exceptions/handler.php render function;
+
 it's easy to change the token exception for us;
+
 it's easy to change the return data for api response.
 
 of course, we should:
