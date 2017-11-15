@@ -163,16 +163,20 @@ controller
 $payload = $request->get('jwt');
 ```
 
-### Exception
+### Exception (global for api)
 
 you can copy below code to your Laravel app/Exceptions/handler.php render function;
 it's easy to change the token exception for us;
 it's easy to change the return data for api response.
 
 of course, we should:
+
 use Jerry\JWT\Exceptions\TokenFormatException;
+
 use Jerry\JWT\Exceptions\TokenExpiredException;
+
 use Jerry\JWT\Exceptions\TokenForwardException;
+
 use Jerry\JWT\Exceptions\PayloadFormatException;
 
 ```
