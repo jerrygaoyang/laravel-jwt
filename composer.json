@@ -9,8 +9,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
-	"autoload": {
+    "require": {
+    	"laravel/framework": "5.*"
+    },
+    "autoload": {
         "psr-4": {
             "Jerry\\JWT\\": "src/"
         }
