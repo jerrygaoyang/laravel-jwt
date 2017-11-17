@@ -43,7 +43,7 @@ return [
 
 ### User Guide
 
-##### encode and decode
+#### encode and decode
 
 ```
 use Jerry/JWT/JWT;
@@ -62,7 +62,7 @@ print_r($payload);
 
 ```
 
-##### http api process for laravel  
+#### http api process for laravel  
 
 * First: http request must have header
 
