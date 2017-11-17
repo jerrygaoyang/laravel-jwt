@@ -43,92 +43,7 @@ return [
 
 ### User Guide
 
-
-* For example
-
-```
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Jerry\JWT\JWT;
-use App\User;
-use Jerry\JWT\Exceptions\TokenFormatException;
-use Jerry\JWT\Exceptions\TokenExpiredException;
-use Jerry\JWT\Exceptions\TokenForwardException;
-use Jerry\JWT\Exceptions\PayloadFormatException;
-
-class TestController extends Controller
-{
-
-    /*
-     * create token , payload must be relation array ;
-     * also you can take your User or others objects to your payload array;
-     * also you can custom you exception return with your return data format
-     *
-     */
-    public function test1(Request $request)
-    {
-        try {
-            $user = User::find(1);
-            $payload = [
-                'user' => $user
-            ];
-            $token = JWT::encode($payload);
-
-            return response()->json([
-                'code' => 0,
-                'message' => 'success',
-                'data' => ['token' => $token]
-            ]);
-        } catch (TokenForwardException $e) {
-            return response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'data' => ''
-            ]);
-        } catch (TokenExpiredException $e) {
-            return response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'data' => ''
-            ]);
-        } catch (TokenFormatException $e) {
-            return response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'data' => ''
-            ]);
-        } catch (PayloadFormatException $e) {
-            return response()->json([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'data' => ''
-            ]);
-        }
-
-    }
-
-    /*
-     * Get jwt payload with Request $request:
-     * http request must have header, 
-     * laravel route use middleware jwt
-     */
-    public function test2(Request $request)
-    {
-        $payload = $request->get('jwt');
-        return response()->json([
-            'code' => 0,
-            'message' => 'success',
-            'data' => ['payload' => $payload]
-        ]);
-    }
-}
-
-```
-
-* Token encode and decode  
+##### encode and decode
 
 ```
 use Jerry/JWT/JWT;
@@ -147,24 +62,26 @@ print_r($payload);
 
 ```
 
-* Get jwt payload with Laravel Request $request,  http request must have header,  laravel route use middleware jwt 
+##### http api process for laravel  
 
-http request header
+* First: http request must have header
+
 ``` 
 {
     "Authorization": "jwt PIe5T3xJWAMA95Uwf7pde7gmS7ZTiURg"
 }	
 ```
 
-laravel route
+* Second: laravel route use middleware jwt 
+
 ```
 Route::middleware(['jwt'])->group(function () {
     Route::get('/test2', 'TestController@test2');
 });
 ```
 
-laravel controller
-controller
+* Last: user request get jwt decode payload in your laravel controller
+
 ```
 $payload = $request->get('jwt');
 ```
