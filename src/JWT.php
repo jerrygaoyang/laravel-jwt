@@ -16,10 +16,6 @@ use Jerry\JWT\Exceptions\PayloadFormatException;
 
 class JWT
 {
-
-    /*
-     * jwt default header only support HS256
-     */
     public static function header()
     {
         return [
