@@ -23,14 +23,10 @@ class JWT
     public static function header()
     {
         return [
-            "typ" => "JWT",
-            'alg' => "HS256"
+            "typ" => "JWT"
         ];
     }
 
-    /*
-     * basic jwt encode for HS256
-     */
     public static function basic_encode($payload, $secret)
     {
         if (!is_array($payload)) {
@@ -38,15 +34,13 @@ class JWT
         }
         $header_base64 = self::safe_base64_encode(json_encode(self::header()));
         $payload_base64 = self::safe_base64_encode(json_encode($payload));
-        $signature = hash_hmac("SHA256", $header_base64 . "." . $payload_base64, $secret, true);
+        $secret_base64 = self::safe_base64_encode($secret);
+        $signature = password_hash($header_base64 . "." . $payload_base64 . "." . $secret_base64, PASSWORD_BCRYPT);
         $signature_base64 = self::safe_base64_encode($signature);
         $token = $header_base64 . "." . $payload_base64 . "." . $signature_base64;
         return $token;
     }
 
-    /*
-     * basic jwt decode for HS256
-     */
     public static function basic_decode($token, $secret)
     {
         if (!is_string($token)) {
@@ -59,9 +53,10 @@ class JWT
         $header_base64 = $data[0];
         $payload_base64 = $data[1];
         $signature_base64 = $data[2];
-        $signature = hash_hmac("SHA256", $header_base64 . "." . $payload_base64, $secret, true);
+        $secret_base64 = self::safe_base64_encode($secret);
+        $verify_string = $header_base64 . "." . $payload_base64 . "." . $secret_base64;
 
-        if (self::safe_base64_encode($signature) == $signature_base64) {
+        if (password_verify($verify_string, self::safe_base64_decode($signature_base64))) {
             return json_decode(self::safe_base64_decode($payload_base64), true);
         } else {
             throw new TokenFormatException("the token is invalid");
